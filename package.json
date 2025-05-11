@@ -2,11 +2,13 @@
   "name": "first-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./src/index.js",
   "scripts": {
-    "run": "index.js",
+    "brum": "node --watch src/index.js",
+    "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "type": "module",
   "keywords": [],
   "author": "Tharos",
   "license": "ISC",
