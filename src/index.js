@@ -17,6 +17,63 @@ app.get("/", (request, response) => {
     .send("<h1>Buenas tardes</h1>"); // Mensaje que se envía finalmente
 });
 
+// Con esta route lo que le decimos es que vaya a midu y mande la imagen definida en back
+app.get("/midu", (request, response) => {
+  console.log("Estamos tratando de mandar una imagen");
+
+  // Aquí guardamos las opciones del envío, que son necesarias para el método sendFile
+  const options = {
+    root: "public/images"
+  };
+
+  // El nombre del archivo
+  const fileName = "midu-explicando.png";
+
+  // ⚠️ sedFile() necesita como métodos el nombre del archivo (fileName), options (las opciones de la imagen de arriba)
+  // y un error (si queremos)
+  response
+  .status(200)
+  .set("Content-Type", "image/png")
+  .sendFile(fileName, options, (error) => {
+    if (error) {
+      console.log("No se ha podido enviar la imagen");
+      response.status(404).set("Content-Type", "text/plain").send("No se pudo recuperar la imagen");
+    } else {
+      console.log("Se ha enviado: ", fileName);
+    }
+  });
+});
+
+// Con esta route lo que le decimos es que vaya a midu y mande la imagen definida en la ruta de la URL
+app.get("/midu/:name", (request, response) => {
+  console.log("Estamos tratando de mandar una imagen");
+
+  // Aquí guardamos las opciones del envío, que son necesarias para el método sendFile
+  const options = {
+    root: "public/images",
+    dotfiles: "deny",
+    headers: {
+      "x-timestamp": new Date().toLocaleString(),
+      "x-sent": true
+    }
+  };
+
+  // El nombre del archivo
+  const fileName = request.params.name;
+
+  response
+  .status(200)
+  .set("Content-Type", "image/png")
+  .sendFile(fileName, options, (error) => {
+    if (error) {
+      console.log("No se ha podido enviar la imagen");
+      response.status(404).set("Content-Type", "text/plain").send("No se pudo recuperar la imagen");
+    } else {
+      console.log("Se ha enviado: ", fileName);
+    }
+  });
+});
+
 app.listen(port, () => {
   console.log(`Ejemplo de aplicación en http://localhost:${port}`);
 });
