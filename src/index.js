@@ -11,6 +11,18 @@ app.disable("x-powered-by");
 // Creamos nuestro puerto en el servidor
 const port = 3210;
 
+// Añadimos un middleware, que en Espress es .use
+// Se pueden especificar las direcciones, si no se pone nada son todas
+app.use((request, response, next) => {
+  console.log("Se ha hecho la petición:", request.method);
+  console.log("Contiene la dirección: ", request.path);
+  const nowTime = new Date().toLocaleString();
+  console.log("Fecha: ", nowTime);
+
+  // ⚠️ Cuidado con no poner el next(), que sino se tira buscando todo el rato
+  next();
+});
+
 // Y creamos nuestras llamadas
 app.get("/", (request, response) => {
   // Express tiene un bug con el --watch que no refresca los Contemt-Type si no se cambia el status también
