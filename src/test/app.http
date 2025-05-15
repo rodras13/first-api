@@ -1,0 +1,11 @@
+### Esto se utiliza con una extensión de VSCode llamada REST Client
+
+GET http://localhost:3210/
+
+### Comentario para separar las request
+
+GET http://localhost:3210/midu
+
+### Esto devuelve un error
+
+GET http://localhost:3210/midu/buenas

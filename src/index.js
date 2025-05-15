@@ -5,6 +5,9 @@ import express from "express";
 // Aquí guardamos la configuración de Express en el objeto app, que viene a ser nuestra aplicación
 const app = express();
 
+// Hay que desabilitar la "marca de agua" de express
+app.disable("x-powered-by");
+
 // Creamos nuestro puerto en el servidor
 const port = 3210;
 
